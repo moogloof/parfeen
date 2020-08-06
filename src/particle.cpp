@@ -24,35 +24,55 @@ Particle::Particle(double x, double y, double m, double c) {
     charge = c;
 }
 
+Particle::Particle() {
+    // Set coords to default
+    coords[0] = 0;
+    coords[1] = 0;
+
+    // Set velocities to default
+    velocity[0] = 0;
+    velocity[1] = 0;
+
+    // Set forces to 0
+    net_force[0] = 0;
+    net_force[1] = 0;
+
+    // Set mass to default
+    mass = 1;
+
+    // Set charge to default
+    charge = 1;
+}
+
 /* Set force components */
-void Particle::setForce(double force[]) {
+void Particle::SetForce(double force[]) {
     net_force[0] = force[0];
     net_force[1] = force[1];
 }
 
 /* Add force components to stored force */
-void Particle::addForce(double force[]) {
+void Particle::AddForce(double force[]) {
     net_force[0] += force[0];
     net_force[1] += force[1];
 }
 
 /* Return force as an array of components */
-double *Particle::getForce() {
+double *Particle::GetForce() {
     return net_force;
 }
 
 /* Set charge of particle */
-void Particle::setCharge(double c) {
+void Particle::SetCharge(double c) {
     charge = c;
 }
 
 /* Return charge of particle */
-double Particle::getCharge() {
+double Particle::GetCharge() {
     return charge;
 }
 
 /* Apply force components to velocity and update coords */
-void Particle::applyForce(double t) {
+void Particle::ApplyForce(double t) {
     // Get acceleration
     double acceleration[2];
     acceleration[0] = net_force[0] / mass;
@@ -67,11 +87,19 @@ void Particle::applyForce(double t) {
     velocity[1] += t * acceleration[1];
 }
 
-void Particle::setMass(double m) {
+void Particle::SetMass(double m) {
     mass = m;
 }
 
-double Particle::getMass() {
+double Particle::GetMass() {
     return mass;
 }
 
+void Particle::SetCoords(double c[]) {
+    coords[0] = c[0];
+    coords[1] = c[1];
+}
+
+double *Particle::GetCoords() {
+    return coords;
+}

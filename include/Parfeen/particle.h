@@ -10,14 +10,17 @@ class Particle {
         double mass;
     public:
         Particle(double, double, double, double);
-        void setForce(double []);
-        void addForce(double []);
-        double *getForce();
-        void setCharge(double);
-        double getCharge();
-        void applyForce(double);
-        void setMass(double);
-        double getMass();
+        Particle();
+        void SetForce(double []);
+        void AddForce(double []);
+        double *GetForce();
+        void SetCharge(double);
+        double GetCharge();
+        void ApplyForce(double);
+        void SetMass(double);
+        double GetMass();
+        void SetCoords(double []);
+        double *GetCoords();
 };
 
 #endif
