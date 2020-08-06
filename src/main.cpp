@@ -2,13 +2,24 @@
 #include <limits>
 #include <Parfeen/particle.h>
 #include <Parfeen/system.h>
+#include <utils/display.h>
+
+// Compile array of particles into an array of coords
+void CompileCoords(Particle [], int, double **);
 
 int main() {
     Particle *particles;
     int len;
     int generation = 0;
+    int screen_width, screen_height, scale;
     char select_option;
-    double particle_coord[2], particle_charge, particle_mass;
+    double particle_coord[2], **c_coords, particle_charge, particle_mass;
+
+    // Get display info
+    std::cout << "Screen size: ";
+    std::cin >> screen_width >> screen_height;
+    std::cout << "Graph scale: ";
+    std::cin >> scale;
 
     // Get number of particles
     std::cout << "Number of Particles: ";
@@ -16,6 +27,9 @@ int main() {
 
     // Allocate particle data
     particles = new Particle[len];
+    c_coords = new double*[len];
+    for (int i = 0; i < len; i++)
+        c_coords[i] = new double[2];
 
     // Initialize each particle
     for (int i = 0; i < len; i++) {
@@ -41,6 +55,10 @@ int main() {
         // Print generation
         std::cout << "Generation: " << generation++ << std::endl;
 
+        // Print graph
+        CompileCoords(particles, len, c_coords);
+        Display(screen_width, screen_height, c_coords, len, scale);
+
         // Display data
         for (int i = 0; i < len; i++) {
             std::cout << "Particle " << i << " : (" << particles[i].GetCoords()[0] << ", " << particles[i].GetCoords()[1] << ")" << std::endl;
@@ -59,7 +77,20 @@ int main() {
         UpdateSystem(particles, len, 1);
     }
 
+    // Cleanup
+    // Deallocate all dynamic pointers
     delete [] particles;
+    for (int i = 0; i < len; i++)
+        delete [] c_coords[i];
+    delete [] c_coords;
 
     return 0;
 }
+
+void CompileCoords(Particle particles[], int len, double **coords) {
+    for (int i = 0; i < len; i++) {
+        coords[i][0] = particles[i].GetCoords()[0];
+        coords[i][1] = particles[i].GetCoords()[1];
+    }
+}
+
