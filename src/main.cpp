@@ -74,7 +74,9 @@ int main() {
         }
 
         // Advance simulation by 1 second
-        UpdateSystem(particles, len, 1);
+        // Step at smaller intervals for accuracy
+        for (int i = 0; i < 100; i++)
+            UpdateSystem(particles, len, 0.01);
     }
 
     // Cleanup
