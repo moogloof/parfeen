@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string>
+#include <limits>
 #include <Parfeen/particle.h>
 #include <Parfeen/system.h>
 
@@ -7,6 +7,7 @@ int main() {
     Particle *particles;
     int len;
     int generation = 0;
+    char select_option;
     double particle_coord[2], particle_charge, particle_mass;
 
     // Get number of particles
@@ -45,9 +46,13 @@ int main() {
             std::cout << "Particle " << i << " : (" << particles[i].GetCoords()[0] << ", " << particles[i].GetCoords()[1] << ")" << std::endl;
         }
 
+        // Get user input
+        select_option = std::cin.get();
         // Stop simulation if user inputs q
-        if (std::cin.get() == 'q') {
+        if (select_option == 'q') {
             break;
+        } else if (select_option != '\n') {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
 
         // Advance simulation by 1 second
