@@ -4,6 +4,6 @@
 #define SYSTEM_H
 
 void UpdateSystem(Particle [], int, double);
-void CoulombsLaw(Particle &, Particle, double);
+void CoulombsLaw(Particle &, Particle);
 
 #endif
